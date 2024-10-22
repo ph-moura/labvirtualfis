@@ -80,7 +80,7 @@ const Projectile: React.FC = () => {
         setUpdate(false);
     };
 
-    const handleUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleUpdate = (event: React.MouseEvent<HTMLButtonElement>) => {
         setUpdate(!update);
         setShow(false);
     }
