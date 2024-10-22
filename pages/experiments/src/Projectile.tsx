@@ -20,7 +20,7 @@ const styles={
 const Projectile: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-    const [theta, setRadius] = useState<number>(0);
+    const [theta, setAngle] = useState<number>(0);
     const [velocity, setVelocity] = useState<number>(5);
     const [update, setUpdate] = useState<boolean>(false);
     const [show, setShow] = useState<boolean>(false);
@@ -43,42 +43,40 @@ const Projectile: React.FC = () => {
         var particle = new Particle(pos, v, radius);
 
         const transferidor = new Image();
-        //transferidor.src ='../images/protractor3.webp';
-        //transferidor.src ='../images/transferidor(134x135).png';
         transferidor.src ='../images/transferidor(141x135).png';
         transferidor.onload = () => { };
 
-    function animate() {
-      ctx.save();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.imageSmoothingEnabled;
-      if(show){
-          ctx.drawImage(transferidor,0, canvas.height-135 - radius);
-      }
-      if (update){
-        particle.update(canvas.width, canvas.height);
-      }   
-      particle.draw(ctx);
-
-        const vec = new Arrow(particle.r, 
-                              particle.v.mag() * 10, 
-                              particle.v.angle(),
-                              //Vector2D.angle(particle.g, particle.v),
-                              'black');
-
-        //if(particle.v.y !== 0.0) {
+        function animate() {
+            ctx.save();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.imageSmoothingEnabled;
+            if(show){
+                const line = new Arrow(particle.r, 110, particle.v.angle(), 'red');
+                line.thickness=1;
+                line.headSize=10;
+                line.headWidth=3;
+                ctx.drawImage(transferidor, 0, canvas.height - 135 - radius);
+                line.draw(ctx)
+            }
+            if (update){
+                particle.update(canvas.width, canvas.height);
+            }   
+            particle.draw(ctx);
+            
+            const vec = new Arrow(particle.r, particle.v.mag() * 10, particle.v.angle(), 'black');
+            const vecx = new Arrow(particle.r, particle.v.x * 10, 0, 'red');
+            const vecy = new Arrow(particle.r, particle.v.y * 10, 90, 'green');
+            
             vec.draw(ctx);
-        //}
-      ctx.restore();
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-  }, [show, velocity, theta, update]);
+            ctx.restore();
+            requestAnimationFrame(animate);
+        }
+        animate();
+    }, [show, velocity, theta, update]);
 
 
     const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRadius(Number(event.target.value));
+        setAngle(Number(event.target.value));
         setUpdate(false);
     };
 
@@ -96,10 +94,6 @@ const Projectile: React.FC = () => {
         setShow(!show);
         setUpdate(false);
     }
-
-
-
-
 
     return (
         <ChartWrapper> 
@@ -136,19 +130,6 @@ const Projectile: React.FC = () => {
                     </tr>
                     <tr>
                         <td>
-                            <label htmlFor="launch">Lançar:</label>
-                        </td>
-                        <td>
-                            <input type="checkbox"
-                                   id="protractor"
-                                   style={{margin: '15px'}}
-                                   checked={update}
-                                   onChange={handleUpdate}
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
                             <label htmlFor="protractor">Transferidor:</label>
                         </td>
                         <td>
@@ -158,6 +139,11 @@ const Projectile: React.FC = () => {
                                    checked={show}
                                    onChange={showProtractor}
                             />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button onClick={handleUpdate}>Lançar</button>
                         </td>
                     </tr>
                 </tbody>

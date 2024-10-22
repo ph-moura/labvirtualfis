@@ -9,7 +9,7 @@ const Header = styled.header`
     color: ${({ theme }) => theme.colors.headerfg};
     width:100%;
     padding: 1rem 0;
-    min-height: 300px;
+    min-height: 100px;
     text-align: justify;
     font-weight: 400;
     font-size: 18px;

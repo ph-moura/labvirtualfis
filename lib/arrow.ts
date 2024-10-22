@@ -18,17 +18,14 @@ class Arrow {
         this.color     = color;
         this.headColor = color;
         this.thickness = 2;
-        this.headWidth;
-        this.headSize;
+        this.headWidth = 2 * this.thickness;
+        this.headSize  = 4 * this.thickness;
     };
 
     draw(ctx : CanvasRenderingContext2D)
     {
         if (this.lenght > 0) {
             let angle = 1.0 * this.angle * Math.PI / 180.0;
-
-            this.headWidth = 2 * this.thickness;
-            this.headSize  = 4 * this.thickness;
 
             ctx.save();
             ctx.translate(this.pos.x, this.pos.y);

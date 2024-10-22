@@ -15,6 +15,8 @@ export default function Experiments() {
       </Head>
       <Main>
           <Title>Estudo do movimento sob ação do campo gravitacional: lançamento de projétil.</Title>
+          <h2>Para você refletir</h2>
+          <p> </p>
           <h2>Roteiro do experimento</h2>
           <li>Variar a velocidade mantendo o ângulo fixo.</li>
           <li>Variar o ângulo mantendo a velocidade fixa.</li>

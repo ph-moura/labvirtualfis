@@ -20,7 +20,7 @@ class Particle {
     {
 
         if (Math.abs(this.v.x) <= 0.02) {
-            this.v.x = 0;
+           // this.v.x = 0;
         }
 
         const vy = this.v.y + this.g.mag();
@@ -38,9 +38,15 @@ class Particle {
             this.v.x = -this.v.x;
         }
 
-        if ((this.r.y + this.radius >= height) || (this.r.y - this.radius <= 0)) {
+        if (this.r.y + this.radius > height) {
+            //this.v.y = -this.v.y;
+            //this.v.scaleBy(0.8);
+            this.v.x = 0;
+            this.v.y = 0;
+        }
+
+        if (this.r.y - this.radius < 0) {
             this.v.y = -this.v.y;
-            this.v.scaleBy(0.8);
         }
     }
 
